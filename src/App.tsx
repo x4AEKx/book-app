@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import {bookType} from "./type/book";
 import {Input} from "./components/Input/Input";
+import {Button} from "./components/Button/Button";
 
 type ModalPropsType =
 		{
@@ -84,9 +85,10 @@ function App() {
 
 		return (
 				<div className="App">
-						<div style={{marginTop: "1.2rem", display: 'flex'}}>
+						<div style={{marginTop: "1.2rem", display: "flex"}}>
 								<Input placeholder={"Type for search"} changeValueCallback={setSearch}/>
-								<button style={{marginLeft: "5px"}}>search</button>
+								<div style={{marginLeft: '0.2rem'}}></div>
+								<Button label={"Search"} />
 						</div>
 
 						<Modal

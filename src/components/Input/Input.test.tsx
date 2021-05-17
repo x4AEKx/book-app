@@ -17,4 +17,13 @@ describe('Input component: ', () => {
 				fireEvent.change(input, { target: { value: "lord" } })
 				expect(input).toHaveValue("lord")
 		})
+
+		test("should called fn when onChange() event", () => {
+				const callback =  jest.fn()
+				const { getByRole } = render(<Input placeholder={'Type for search'} changeValueCallback={callback}/>)
+				const input = getByRole('textbox')
+
+				fireEvent.change(input, { target: { value: "lord" } })
+				expect(callback).toHaveBeenCalled()
+		})
 })
