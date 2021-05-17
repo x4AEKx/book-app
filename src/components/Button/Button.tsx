@@ -1,12 +1,12 @@
 import React from "react";
-import styles from './Button.module.css'
+import styles from "./Button.module.css"
 
 export type ButtonPropsType = {
 		label: string
 		onClickCallback?: () => void
 }
 
-export function Button({label, onClickCallback, ...props} : ButtonPropsType) {
+export const Button = React.memo(function ({label, onClickCallback, ...props}: ButtonPropsType) {
 		const handleOnClick = () => {
 				onClickCallback && onClickCallback()
 		}
@@ -14,4 +14,4 @@ export function Button({label, onClickCallback, ...props} : ButtonPropsType) {
 		return (
 				<button className={styles.button} onClick={handleOnClick} {...props}>{label}</button>
 		)
-}
+})
