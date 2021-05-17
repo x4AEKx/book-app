@@ -6,7 +6,7 @@ export type InputPropsType = {
 		changeValueCallback?: (e: string) => void
 }
 
-export function Input({placeholder, changeValueCallback}: InputPropsType) {
+export function Input({placeholder, changeValueCallback, ...props}: InputPropsType) {
 		const [input, setInput] = useState("")
 
 		const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +16,6 @@ export function Input({placeholder, changeValueCallback}: InputPropsType) {
 
 		return (
 				<input type="text" placeholder={placeholder} className={styles.input} value={input}
-							 onChange={handleOnChange}/>
+							 onChange={handleOnChange} {...props}/>
 		)
 }
