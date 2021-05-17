@@ -1,7 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import axios from "axios";
 import {bookType} from "./type/book";
+import {Input} from "./components/Input/Input";
 
 type ModalPropsType =
 		{
@@ -48,7 +49,7 @@ const Modal = React.memo(function ({
 })
 
 function App() {
-		const [inputValue, setInputValue] = useState("")
+		const [search, setSearch] = useState("")
 
 		const [books, setBooks] = useState<Array<bookType>>([])
 
@@ -64,7 +65,7 @@ function App() {
 		useEffect(() => {
 
 				const timeout = setTimeout(async () => {
-						const data = await getBooks(inputValue)
+						const data = await getBooks(search)
 						setBooks(data)
 						console.log("timeout start")
 				}, 1000)
@@ -74,21 +75,17 @@ function App() {
 						clearTimeout(timeout)
 						console.log("timeout break")
 				}
-		}, [inputValue])
+		}, [search])
 
 		console.log(books)
-
-		const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-				setInputValue(e.currentTarget.value)
-		}
 
 		const [isModal, setModal] = useState(false)
 		const onClose = () => setModal(false)
 
 		return (
 				<div className="App">
-						<div style={{marginTop: "10px"}}>
-								<input type="text" value={inputValue} onChange={handleOnChange}/>
+						<div style={{marginTop: "1.2rem", display: 'flex'}}>
+								<Input placeholder={"Type for search"} changeValueCallback={setSearch}/>
 								<button style={{marginLeft: "5px"}}>search</button>
 						</div>
 
