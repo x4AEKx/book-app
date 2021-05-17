@@ -1,0 +1,30 @@
+export type bookType = {
+		author_key: Array<string>
+		author_name: Array<string>
+		cover_edition_key: string
+		cover_i: number
+		ddc: Array<string>
+		ebook_count_i: number
+		edition_count: number
+		edition_key: Array<string>
+		first_publish_year: number
+		has_fulltext: boolean
+		id_goodreads: Array<string>
+		id_librarything: Array<string>
+		isbn: Array<string>
+		key: string
+		language: Array<string>
+		last_modified_i: number
+		lcc: Array<string>
+		lccn: Array<string>
+		publish_date: Array<string>
+		publish_place: Array<string>
+		publish_year: Array<number>
+		publisher: Array<string>
+		seed: Array<string>
+		subject: Array<string>
+		text: Array<string>
+		title: string
+		title_suggest: string
+		type: string
+}
