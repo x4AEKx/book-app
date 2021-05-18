@@ -29,10 +29,15 @@ function App() {
 		}
 
 		useEffect(() => {
-				const timeout = setTimeout(async () => {
-						const data = await getBooks(search)
-						setBooks(data)
-				}, 1000)
+				let timeout: ReturnType<typeof setTimeout>
+
+				if(search) {
+						timeout = setTimeout(async () => {
+								const data = await getBooks(search)
+								setBooks(data)
+						}, 1000)
+				}
+
 				return () => {
 						clearTimeout(timeout)
 				}
