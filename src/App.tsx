@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import axios from "axios";
 import {bookType} from "./type/book";
 import {Input} from "./components/Input/Input";
@@ -20,6 +20,7 @@ function App() {
 		const [isbn, setIsbn] = useState<Array<string>>([])
 
 		const [isModal, setModal] = useState(false)
+
 		const onClose = () => setModal(false)
 
 		const getBooks = async (value: string) => {
@@ -48,8 +49,8 @@ function App() {
 		}
 
 		return (
-				<div className="wrapper">
-						<div className="container">
+				<div className={styles.wrapper}>
+						<div className={styles.container}>
 								<Input placeholder={"Type for search"} changeValueCallback={setSearch}/>
 								<Button label={"Search"}/>
 						</div>
@@ -65,9 +66,9 @@ function App() {
 								onClickCallback={onClose}
 						/>
 
-						<ul className="cards">
+						<ul className={styles.cards}>
 								{books.map(book => (
-												<li key={book.key} className="cards__item">
+												<li key={book.key} className={styles.cardsItem}>
 														<Card
 																onClickCallback={() => setParamsForModal(book.cover_i, book.title, true, book.author_name, book.publish_date, book.publisher, book.isbn)}
 																title={book.title}
