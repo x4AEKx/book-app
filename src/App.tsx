@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import styles from "./App.module.css";
-import axios from "axios";
 import {bookType} from "./type/book";
 import {Input} from "./components/Input/Input";
 import {Button} from "./components/Button/Button";
 import {Modal} from "./components/Modal/Modal";
 import {Card} from "./components/Card/Card";
+import {booksAPI} from "./api/api";
 
 function App() {
 		const [search, setSearch] = useState("")
@@ -23,15 +23,10 @@ function App() {
 
 		const onClose = () => setModal(false)
 
-		const getBooks = async (value: string) => {
-				const {data} = await axios.get(`https://openlibrary.org/search.json?title=${value}`)
-				return data.docs
-		}
-
 		useEffect(() => {
 				const timeout = setTimeout(async () => {
-						const data = await getBooks(search)
-						setBooks(data)
+						const {docs} = await booksAPI.getBooks(search)
+						setBooks(docs)
 				}, 1000)
 				return () => {
 						clearTimeout(timeout)
