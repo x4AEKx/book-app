@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from "react";
 import styles from "./App.module.css";
-import {bookType} from "./type/book";
 import {Input} from "./components/Input/Input";
 import {Button} from "./components/Button/Button";
 import {Modal} from "./components/Modal/Modal";
 import {Card} from "./components/Card/Card";
-import {booksAPI} from "./api/api";
+import {useDispatch, useSelector} from "react-redux";
+import {getBooksThunk} from "./redux/reducers/booksReducer";
+import {getBooksSelector} from "./redux/selectors/booksSelectors";
 
 function App() {
 		const [search, setSearch] = useState("")
 
-		const [books, setBooks] = useState<Array<bookType>>([])
+		const dispatch = useDispatch()
+
+		const books = useSelector(getBooksSelector)
 
 		const [cover, setCover] = useState<number>(0)
 		const [title, setTitle] = useState<string>("")
@@ -22,21 +25,20 @@ function App() {
 		const [isModal, setModal] = useState(false)
 
 		const onClose = () => setModal(false)
-
-		useEffect(() => {      
+    
+		useEffect(() => {     
 				let timeout: ReturnType<typeof setTimeout>
 
-				if(search) {
+				if (search) {
 						timeout = setTimeout(async () => {
-								const data = await getBooks(search)
-								setBooks(data)
+								dispatch(getBooksThunk(search))
 						}, 1000)
 				}
         
 				return () => {
 						clearTimeout(timeout)
 				}
-		}, [search])
+		}, [search, dispatch])
 
 		const setParamsForModal = (coverId: number, bookTitle: string, modalVisible: boolean, authorsNames: Array<string>, publishDates: Array<string>, publishers: Array<string>, isbn: Array<string>) => {
 				setCover(coverId)
@@ -65,9 +67,8 @@ function App() {
 								isbn={isbn}
 								onClickCallback={onClose}
 						/>
-
 						<ul className={styles.cards}>
-								{books.map(book => (
+								{books.map((book) => (
 												<li key={book.key} className={styles.cardsItem}>
 														<Card
 																onClickCallback={() => setParamsForModal(book.cover_i, book.title, true, book.author_name, book.publish_date, book.publisher, book.isbn)}
