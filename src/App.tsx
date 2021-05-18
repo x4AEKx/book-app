@@ -5,6 +5,7 @@ import {bookType} from "./type/book";
 import {Input} from "./components/Input/Input";
 import {Button} from "./components/Button/Button";
 import {Modal} from "./components/Modal/Modal";
+import {Card} from "./components/Card/Card";
 
 function App() {
 		const [search, setSearch] = useState("")
@@ -35,63 +36,48 @@ function App() {
 						clearTimeout(timeout)
 				}
 		}, [search])
-		console.log(books)
+
+		const setParamsForModal = (coverId: number, bookTitle: string, modalVisible: boolean, authorsNames: Array<string>, publishDates: Array<string>, publishers: Array<string>, isbn: Array<string>) => {
+				setCover(coverId)
+				setTitle(bookTitle)
+				setModal(modalVisible)
+				setAuthors(authorsNames)
+				setPublishDates(publishDates)
+				setPublishers(publishers)
+				setIsbn(isbn)
+		}
+
 		return (
-				<div className="App">
-						<div style={{marginTop: "1.2rem", display: "flex"}}>
+				<div className="wrapper">
+						<div className="container">
 								<Input placeholder={"Type for search"} changeValueCallback={setSearch}/>
-								<div style={{marginLeft: "0.2rem"}}></div>
 								<Button label={"Search"}/>
 						</div>
 
 						<Modal
 								visible={isModal}
 								title={title}
-								cover={cover}
+								coverId={cover}
 								authors={authors}
 								publishDates={publishDates}
 								publishers={publishers}
 								isbn={isbn}
 								onClickCallback={onClose}
 						/>
-						<div style={{
-								display: "flex",
-								alignItems: "stretch",
-								flexWrap: "wrap",
-								marginTop: "10px"
-						}}>
-								{books.map(book => (
-												<div onClick={() => {
-														setCover(book.cover_i)
-														setTitle(book.title)
-														setModal(true)
-														setAuthors(book.author_name)
-														setPublishDates(book.publish_date)
-														setPublishers(book.publisher)
-														setIsbn(book.isbn)
-												}} key={book.key} style={{
-														width: "33.3333%",
-														outline: "1px solid black",
-														cursor: "pointer"
-												}}>
 
-														{book.cover_i
-																? <div style={{
-																		width: "100%",
-																		height: "400px",
-																		background: `url(https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg) center / cover no-repeat`
-																}}></div>
-																: <div style={{
-																		width: "100%",
-																		height: "400px",
-																		background: `url(https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg) center / cover no-repeat`
-																}}/>}
-														<h4 style={{wordBreak: "break-word"}}>{book.title}</h4>
-														{book.author_name && <p>Authors: {book.author_name.join(", ")}</p>}
-												</div>
+						<ul className="cards">
+								{books.map(book => (
+												<li key={book.key} className="cards__item">
+														<Card
+																onClickCallback={() => setParamsForModal(book.cover_i, book.title, true, book.author_name, book.publish_date, book.publisher, book.isbn)}
+																title={book.title}
+																coverId={book.cover_i}
+																authorsNames={book.author_name}
+														/>
+												</li>
 										)
 								)}
-						</div>
+						</ul>
 				</div>
 		);
 }
