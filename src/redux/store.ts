@@ -1,9 +1,11 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux"
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import booksReducer from "./reducers/booksReducer";
+import searchReducer from "./reducers/searchReducer";
 
 let rootReducer = combineReducers({
 		books: booksReducer,
+		search: searchReducer
 })
 
 type RootReducerType = typeof rootReducer

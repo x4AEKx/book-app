@@ -7,12 +7,12 @@ import {Card} from "./components/Card/Card";
 import {useDispatch, useSelector} from "react-redux";
 import {getBooksThunk} from "./redux/reducers/booksReducer";
 import {getBooksSelector} from "./redux/selectors/booksSelectors";
+import {getSearchSelector} from "./redux/selectors/searchSelectors";
 
 function App() {
-		const [search, setSearch] = useState("")
-
 		const dispatch = useDispatch()
 
+		const search = useSelector(getSearchSelector)
 		const books = useSelector(getBooksSelector)
 
 		const [cover, setCover] = useState<number>(0)
@@ -53,7 +53,7 @@ function App() {
 		return (
 				<div className={styles.wrapper}>
 						<div className={styles.container}>
-								<Input placeholder={"Type for search"} changeValueCallback={setSearch}/>
+								<Input placeholder={"Type for search"}/>
 								<Button label={"Search"}/>
 						</div>
 
