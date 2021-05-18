@@ -25,8 +25,8 @@ function App() {
 		const [isModal, setModal] = useState(false)
 
 		const onClose = () => setModal(false)
-
-		useEffect(() => {
+    
+		useEffect(() => {     
 				let timeout: ReturnType<typeof setTimeout>
 
 				if (search) {
@@ -34,7 +34,7 @@ function App() {
 								dispatch(getBooksThunk(search))
 						}, 1000)
 				}
-
+        
 				return () => {
 						clearTimeout(timeout)
 				}
