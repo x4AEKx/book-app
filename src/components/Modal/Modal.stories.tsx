@@ -31,5 +31,5 @@ export const ToggleModal = () => {
 				setModal(!isModal)
 		}
 
-		return <Modal cover={0} visible={isModal} title={'Lord of the ring'} onClickCallback={toggleVisible}/>
+		return <Modal coverId={0} visible={isModal} title={'Lord of the ring'} onClickCallback={toggleVisible}/>
 }

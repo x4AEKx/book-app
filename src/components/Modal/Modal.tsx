@@ -5,7 +5,7 @@ import {Button} from "../Button/Button";
 export type ModalPropsType =
 		{
 				authors?: Array<string>
-				cover?: number
+				coverId?: number
 				visible?: boolean
 				title?: string
 				publishDates?: Array<string>
@@ -15,7 +15,7 @@ export type ModalPropsType =
 		}
 
 export const Modal = React.memo(function ({
-																							cover,
+																							coverId,
 																							authors,
 																							visible = false,
 																							title,
@@ -36,8 +36,8 @@ export const Modal = React.memo(function ({
 								</div>
 								<div className={styles.body}>
 										<div className={styles.content}>
-												{cover
-														? <img src={`https://covers.openlibrary.org/b/id/${cover}-L.jpg`} alt={title}/>
+												{coverId
+														? <img src={`https://covers.openlibrary.org/b/id/${coverId}-L.jpg`} alt={title}/>
 														: <img src={"https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"}
 																	 alt={title}/>}
 

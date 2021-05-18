@@ -16,9 +16,9 @@ describe("Modal component: ", () => {
 				expect(modal).toBeInTheDocument()
 		})
 
-		test("should called fn when onClick() event", () => {
+		test("should be called fn when onClick() event", () => {
 				const callback = jest.fn()
-				const {getByTestId, getByRole} = render(<Modal visible={true} onClickCallback={callback}/>)
+				const {getByRole} = render(<Modal visible={true} onClickCallback={callback}/>)
 				const button = getByRole("button")
 
 				fireEvent.click(button)
