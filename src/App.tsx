@@ -23,11 +23,16 @@ function App() {
 
 		const onClose = () => setModal(false)
 
-		useEffect(() => {
-				const timeout = setTimeout(async () => {
-						const {docs} = await booksAPI.getBooks(search)
-						setBooks(docs)
-				}, 1000)
+		useEffect(() => {      
+				let timeout: ReturnType<typeof setTimeout>
+
+				if(search) {
+						timeout = setTimeout(async () => {
+								const data = await getBooks(search)
+								setBooks(data)
+						}, 1000)
+				}
+        
 				return () => {
 						clearTimeout(timeout)
 				}
